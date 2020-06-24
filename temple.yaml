@@ -1,7 +1,7 @@
 _extensions:
 - jinja2_time.TimeExtension
 _template: git@github.com:jyveapp/public-python-library-template.git
-_version: a5cc2d815dfff4ff3e726258342fc1dba03883fd
+_version: 4b32447399b9bb032d18fff5aa98f0f378bd7a2f
 module_name: formaldict
 repo_name: formaldict
 short_description: Formal structured dictionaries parsed from a schema

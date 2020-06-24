@@ -133,7 +133,7 @@ def _generate_changelog_and_tag(old_version, new_version):
     _shell(f'git tag -f -a {new_version} -m "Version {new_version}"')
 
     # Generate the full changelog
-    _shell('git tidy-log > CHANGELOG.md')
+    # _shell('git tidy-log > CHANGELOG.md')
 
     # Add all updated files
     _shell('git add pyproject.toml CHANGELOG.md')
@@ -148,16 +148,16 @@ def _generate_changelog_and_tag(old_version, new_version):
     # the commit message
     with tempfile.NamedTemporaryFile() as commit_msg_file:
         _shell(f'echo "{new_version}\n" > {commit_msg_file.name}')
-        tidy_log_args = f'^{old_version} HEAD' if old_version else 'HEAD'
-        _shell(f'git tidy-log {tidy_log_args} >> {commit_msg_file.name}')
+        # tidy_log_args = f'^{old_version} HEAD' if old_version else 'HEAD'
+        # _shell(f'git tidy-log {tidy_log_args} >> {commit_msg_file.name}')
 
         # Update the tag so that it includes the latest release messages and
         # the automated commit
-        _shell(f'git tag -d {new_version}')
-        _shell(
-            f'git tag -f -a {new_version} -F {commit_msg_file.name}'
-            ' --cleanup=whitespace'
-        )
+        # _shell(f'git tag -d {new_version}')
+        # _shell(
+        #     f'git tag -f -a {new_version} -F {commit_msg_file.name}'
+        #     ' --cleanup=whitespace'
+        # )
 
 
 def _publish_to_pypi():
@@ -169,7 +169,7 @@ def _publish_to_pypi():
 
     _shell('poetry config http-basic.pypi ${PYPI_USERNAME} ${PYPI_PASSWORD}')
     _shell('poetry build')
-    _shell('poetry publish -vvv -n', stdout=subprocess.PIPE)
+    _shell('poetry publish -vvv -n')
 
 
 def _build_and_push_distribution():
