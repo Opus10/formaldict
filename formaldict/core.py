@@ -9,7 +9,7 @@ This module contains the `Schema`, the parsed
 
     The ``formaldict`` module will eventually be its own library.
 """
-import collections
+import collections.abc
 import copy
 import datetime as dt
 import re
@@ -45,7 +45,7 @@ class _ValueValidator(prompt_toolkit.validation.Validator):
             )
 
 
-class Errors(collections.Mapping):
+class Errors(collections.abc.Mapping):
     """
     Collects errors found when validating a `Schema`
     """
@@ -78,7 +78,7 @@ class Errors(collections.Mapping):
         ).strip()
 
 
-class FormalDict(collections.Mapping):
+class FormalDict(collections.abc.Mapping):
     """
     A formal dictionary of data associated with a `Schema`.
 
@@ -139,7 +139,7 @@ class FormalDict(collections.Mapping):
         return not self.errors
 
 
-class Schema(collections.Sequence):
+class Schema(collections.abc.Sequence):
     """
     The `Schema` object provides a definition of structured data
     and associated methods to parse and validate structured data.
