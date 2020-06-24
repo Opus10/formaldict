@@ -135,8 +135,11 @@ def _generate_changelog_and_tag(old_version, new_version):
     # Generate the full changelog
     # _shell('git tidy-log > CHANGELOG.md')
 
+    # Generate a requirements.txt for readthedocs.org
+    _shell('poetry export --dev -f requirements.txt -o requirements.txt')
+
     # Add all updated files
-    _shell('git add pyproject.toml CHANGELOG.md')
+    _shell('git add pyproject.toml CHANGELOG.md requirements.txt')
 
     # Use [skip ci] to ensure CircleCI doesnt recursively deploy
     _shell(
