@@ -12,7 +12,7 @@ name = "formaldict"
 packages = [
   { include = "formaldict" }
 ]
-version = "0.0.0"
+version = "0.1.0"
 description = "Formal structured dictionaries parsed from a schema"
 authors = ["Jyve Engineering"]
 classifiers = [
@@ -21,6 +21,9 @@ classifiers = [
 
 [tool.poetry.dependencies]
 python = "^3.6"
+kmatch = "^0.3.0"
+python-dateutil = "^2.8.1"
+prompt-toolkit = "^3.0.2"
 
 [tool.poetry.dev-dependencies]
 black = "=19.10b0"
@@ -36,8 +39,10 @@ pip = "*"
 pre-commit = "1.18.3"
 pytest = "=5.4.1"
 pytest-cov = "=2.8.1"
+pytest-mock = "^2.0.0"
 python-magic = "=0.4.15"
 requests = "^2.22.0"
 Sphinx = "=3.0.3"
 sphinx-rtd-theme = "=0.4.3"
 temple = "*"
+tox = "^3.15.2"

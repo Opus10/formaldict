@@ -1,7 +1,18 @@
 formaldict
-=======================================================================
+==========
 
-Welcome to the docs for formaldict! It doesn't appear that
-the author has created any Sphinx docs for their project yet. Try
-viewing the `README <https://github.com/jyveapp/formaldict>`_
-of their project for documentation.
+``formaldict`` provides the constructs for parsing structured dictionaries
+that adhere to a schema. Along with a simple and flexible schema definition
+to parse and validate dictionaries, ``formaldict`` is integrated with
+`python-prompt-toolkit <https://github.com/prompt-toolkit/python-prompt-toolkit>`__.
+This integration allows users to easily construct flows for command line
+interfaces (CLIs) when parsing structured user input.
+
+Below is an example user input flow constructed with a ``formaldict``
+schema:
+
+.. image:: _static/prompt.gif
+   :width: 600
+
+Check out the :ref:`tutorial` to get started using ``formaldict``.
+Code documentation is located at :ref:`package`.
