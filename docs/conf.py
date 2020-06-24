@@ -68,7 +68,7 @@ default_role = 'any'
 
 # General information about the project.
 project = u'formaldict'
-copyright = u'2019, Jyve'
+copyright = u'2020, Jyve'
 author = u'Jyve Engineering'
 
 # The version info for the project you're documenting, acts as replacement for

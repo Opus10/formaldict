@@ -14,7 +14,7 @@ packages = [
 ]
 version = "0.2.0"
 description = "Formal structured dictionaries parsed from a schema"
-authors = ["Jyve Engineering"]
+authors = ["Wes Kendall"]
 classifiers = [
   "Intended Audience :: Developers",
   "Operating System :: OS Independent",
@@ -24,6 +24,11 @@ classifiers = [
   "Programming Language :: Python :: 3.8",
   "Programming Language :: Python :: 3 :: Only",
 ]
+license = "BSD-3-Clause"
+readme = "README.rst"
+homepage = "https://github.com/jyveapp/formaldict"
+repository = "https://github.com/jyveapp/formaldict"
+documentation = "https://formaldict.readthedocs.io"
 
 [tool.poetry.dependencies]
 python = ">=3.6,<4"
