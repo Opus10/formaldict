@@ -1,4 +1,10 @@
 # Changelog
+## 1.0.0 (2020-06-25)
+### Api-Break
+  - Official V1 release bump [Wes Kendall, 3c37007]
+
+    Bump the version to 1.0.0.
+
 ## 0.2.1 (2020-06-24)
 ### Trivial
   - Add git-tidy integration and update package metadata. [Wes Kendall, 56eaff8]
