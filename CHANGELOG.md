@@ -1,4 +1,8 @@
 # Changelog
+## 1.0.1 (2020-06-28)
+### Trivial
+  - Added more docs to the README [Wes Kendall, ed322b2]
+
 ## 1.0.0 (2020-06-25)
 ### Api-Break
   - Official V1 release bump [Wes Kendall, 3c37007]
