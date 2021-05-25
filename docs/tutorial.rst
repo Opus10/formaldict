@@ -6,15 +6,15 @@ Tutorial
 The core capabilities of ``formaldict`` are built around the following
 constructs:
 
-1. `Schema` - Every formal dictionary has a `Schema` that specifies the
-   structure. The `Schema` allows one to `Schema.parse` a dictionary
-   or `Schema.prompt` for a dictionary.
-2. `FormalDict` - The dictionary object that is returned by parsing or
-   prompting from a `Schema`. The `FormalDict` object has all attributes
-   in the schema or associated `Errors` that happened during validation.
+1. `formaldict.Schema` - Every formal dictionary has a `formaldict.Schema` that specifies the
+   structure. The `formaldict.Schema` allows one to `Schema.parse` a dictionary
+   or `formaldict.Schema.prompt` for a dictionary.
+2. `formaldict.FormalDict` - The dictionary object that is returned by parsing or
+   prompting from a `formaldict.Schema`. The `formaldict.FormalDict` object has all attributes
+   in the schema or associated `formaldict.Errors` that happened during validation.
 
-`Schema` objects are constructed with a serialize-able list of dictionaries
-that dictate the structure of the `FormalDict`. We'll go over some examples
+`formaldict.Schema` objects are constructed with a serialize-able list of dictionaries
+that dictate the structure of the `formaldict.FormalDict`. We'll go over some examples
 of using these constructs in the following sections.
 
 Basic String Parsing
@@ -28,19 +28,19 @@ attributes. This schema below represents a dictionary with a ``name`` key::
 By default, all entries in the schema are assumed to be ``string`` types.
 Along with that, all entries are required by default.
 
-In order to parse a `FormalDict` from this `Schema`, do::
+In order to parse a `formaldict.FormalDict` from this `formaldict.Schema`, do::
 
   s = Schema([{'label': 'name'}])
   d = s.parse({'name': 'my name'})
 
-In the above, ``d`` is our `FormalDict` that was parsed from the input data
+In the above, ``d`` is our `formaldict.FormalDict` that was parsed from the input data
 sent to ``s.parse()``.
 
 In this example, ``d.is_valid`` returns ``True``, and ``d['name']`` returns
 ``"my name"``.
 
 Since all attributes are required by default, doing the following would
-result in an invalid `FormalDict` object::
+result in an invalid `formaldict.FormalDict` object::
 
   s = Schema([{'label': 'name'}])
   d = s.parse({'name': ''})
@@ -56,11 +56,11 @@ Fields that aren't required are specified like so::
 
   Schema([{'label': 'name', 'required': False}]
 
-Parsing our original example would result in a valid `FormalDict` with a
+Parsing our original example would result in a valid `formaldict.FormalDict` with a
 blank string for the ``name`` attribute.
 
 Let's go into a more advanced example. In the following, we are going to
-make a `Schema` to specify the name of a person, their marital status, and
+make a `formaldict.Schema` to specify the name of a person, their marital status, and
 their zipcode::
 
   Schema([{
@@ -73,7 +73,7 @@ their zipcode::
     'matches': '\d{5}'
   }])
 
-In the above, you'll see two new attributes in our `Schema`:
+In the above, you'll see two new attributes in our `formaldict.Schema`:
 
 1. ``choices`` - Limit the input to be these choices.
 2. ``matches`` - Ensure the input matches the regex.
@@ -98,7 +98,7 @@ and see what it's like to prompt for the schema:
 Customizing the Prompt
 ----------------------
 
-`Schema` objects allow the user to customize the prompt a bit more.
+`formaldict.Schema` objects allow the user to customize the prompt a bit more.
 For example, we've extended on our previous example to change the names
 of attributes and the help text a user sees::
 
@@ -156,7 +156,7 @@ collect the zip code if the user is single::
 When the condition is true, the user will be prompted for a zip code,
 otherwise the attribute is not collected. Similarly, dictionary parsing
 will result in validations errors based on the condition.
-For example, say that ``s`` is the `Schema` from our previous example::
+For example, say that ``s`` is the `formaldict.Schema` from our previous example::
 
   d = s.parse({
     'name': 'Name',
@@ -192,7 +192,7 @@ data would validate our previous schema::
   print(d.is_valid)
   >> True
 
-Although ``random_key`` will not be an attribute in the parsed `FormalDict`,
+Although ``random_key`` will not be an attribute in the parsed `formaldict.FormalDict`,
 there are no validation errors as a result of parsing it. One can use
 the ``strict`` option to catch these errors if desired::
 

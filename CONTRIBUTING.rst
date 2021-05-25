@@ -10,7 +10,7 @@ Setup
 
 Set up your development environment with::
 
-    git clone git@github.com:jyveapp/formaldict.git
+    git clone git@github.com:Opus10/formaldict.git
     cd formaldict
     make setup
 

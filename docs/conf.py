@@ -68,8 +68,8 @@ default_role = 'any'
 
 # General information about the project.
 project = u'formaldict'
-copyright = u'2020, Jyve'
-author = u'Jyve Engineering'
+copyright = u'2021, Opus 10'
+author = u'Opus 10 Engineering'
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the
@@ -151,7 +151,7 @@ latex_documents = [
         master_doc,
         'cookiecutterrepo_name.tex',
         u'formaldict Documentation',
-        u'Jyve',
+        u'Opus 10',
         'manual',
     )
 ]

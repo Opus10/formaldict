@@ -514,7 +514,7 @@ class Schema(collections.abc.Sequence):
         non_extant_labels = set(data.keys()) - set(self._entry_schemas.keys())
         if strict and non_extant_labels:
             err_msg = (
-                f'Labels "'
+                'Labels "'
                 + ', '.join(non_extant_labels)
                 + '" not present in schema.'
             )
@@ -523,7 +523,7 @@ class Schema(collections.abc.Sequence):
         condition_failed_labels = set(data.keys()) & condition_failed_labels
         if strict and condition_failed_labels:
             err_msg = (
-                f'Labels "'
+                'Labels "'
                 + ', '.join(condition_failed_labels)
                 + '" failed conditions in schema.'
             )
@@ -540,7 +540,7 @@ class Schema(collections.abc.Sequence):
         help_text = f'<b>{provided_help}</b> ' if provided_help else ''
 
         if not entry_schema['required']:
-            help_text += f'<i>Optional.</i> '
+            help_text += '<i>Optional.</i> '
 
         if entry_schema['choices']:
             help_text += f'<i>Choices: {entry_schema["choices"]}.</i> '
