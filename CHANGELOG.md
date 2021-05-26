@@ -1,5 +1,9 @@
 # Changelog
-## 1.0.1 (2020-06-28)
+## 1.0.2 (2021-05-25)
+### Trivial
+  - Updated to the latest Python library template [Wes Kendall, 24317a0]
+
+## 1.0.1 (2020-06-29)
 ### Trivial
   - Added more docs to the README [Wes Kendall, ed322b2]
 
