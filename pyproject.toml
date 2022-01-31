@@ -4,7 +4,7 @@ build-backend = "poetry.masonry.api"
 
 [tool.black]
 line-length = 79
-target-version = ['py36']
+target-version = ['py37']
 skip-string-normalization = true
 
 [tool.poetry]
@@ -19,9 +19,10 @@ classifiers = [
   "Intended Audience :: Developers",
   "Operating System :: OS Independent",
   "Programming Language :: Python",
-  "Programming Language :: Python :: 3.6",
   "Programming Language :: Python :: 3.7",
   "Programming Language :: Python :: 3.8",
+  "Programming Language :: Python :: 3.9",
+  "Programming Language :: Python :: 3.10",
   "Programming Language :: Python :: 3 :: Only",
 ]
 license = "BSD-3-Clause"
@@ -31,27 +32,24 @@ repository = "https://github.com/Opus10/formaldict"
 documentation = "https://formaldict.readthedocs.io"
 
 [tool.poetry.dependencies]
-python = ">=3.6.2,<4"
-kmatch = "^0.3.0"
-python-dateutil = "^2.8.1"
-prompt-toolkit = "^3.0.2"
+python = ">=3.7.0,<4"
+kmatch = ">=0.3.0"
+python-dateutil = ">=2.8.1"
+prompt-toolkit = ">=3.0.2"
 
 [tool.poetry.dev-dependencies]
-black = "21.5b1"
+black = "22.1.0"
 flake8 = "3.9.2"
-flake8-bugbear = "21.4.3"
-flake8-comprehensions = "3.5.0"
+flake8-bugbear = "22.1.11"
+flake8-comprehensions = "3.8.0"
 flake8-import-order = "0.18.1"
 flake8-logging-format = "0.6.0"
 flake8-mutable = "1.2.0"
-packaging = "19.2"
-pip = "*"
-pytest-mock = "2.0.0"
-pre-commit = "2.13.0"
-pytest = "6.2.4"
-pytest-cov = "2.12.0"
-requests = "2.25.1"
-Sphinx = "4.0.2"
-sphinx-rtd-theme = "0.5.2"
+git-tidy = "1.1.1"
+pytest-mock = "3.7.0"
+pytest = "6.2.5"
+pytest-cov = "3.0.0"
+Sphinx = "4.4.0"
+sphinx-rtd-theme = "1.0.0"
 temple = "*"
-tox = "3.23.1"
+tox = "3.24.5"
