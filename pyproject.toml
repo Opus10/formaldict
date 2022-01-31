@@ -12,7 +12,7 @@ name = "formaldict"
 packages = [
   { include = "formaldict" }
 ]
-version = "1.0.2"
+version = "1.0.3"
 description = "Formal structured dictionaries parsed from a schema"
 authors = ["Wes Kendall"]
 classifiers = [

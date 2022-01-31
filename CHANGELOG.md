@@ -1,5 +1,9 @@
 # Changelog
-## 1.0.2 (2021-05-25)
+## 1.0.3 (2022-01-30)
+### Trivial
+  - Updates with the latest version of the template [Wes Kendall, 309ca1d]
+
+## 1.0.2 (2021-05-26)
 ### Trivial
   - Updated to the latest Python library template [Wes Kendall, 24317a0]
 
