@@ -1,5 +1,9 @@
 # Changelog
-## 1.0.3 (2022-01-30)
+## 1.0.4 (2022-07-30)
+### Trivial
+  - Updated with the latest Python template, fixing doc builds [Wes Kendall, d293ae0]
+
+## 1.0.3 (2022-01-31)
 ### Trivial
   - Updates with the latest version of the template [Wes Kendall, 309ca1d]
 
