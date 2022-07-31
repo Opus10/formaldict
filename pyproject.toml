@@ -1,11 +1,26 @@
 [build-system]
-requires = ["poetry>=0.12"]
-build-backend = "poetry.masonry.api"
+requires = ["poetry_core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
 
 [tool.black]
-line-length = 79
+line-length = 99
 target-version = ['py37']
 skip-string-normalization = true
+
+[tool.coverage.run]
+branch = true
+source = ["formaldict"]
+
+[tool.coverage.report]
+exclude_lines = [
+    "pragma: no cover",
+    "raise AssertionError",
+    "raise NotImplementedError",
+    "pass",
+    "pytest.mark.skip"
+]
+show_missing = true
+fail_under = 100
 
 [tool.poetry]
 name = "formaldict"
@@ -33,6 +48,7 @@ documentation = "https://formaldict.readthedocs.io"
 
 [tool.poetry.dependencies]
 python = ">=3.7.0,<4"
+importlib_metadata = { version = ">=4", python = "~3.7" }
 kmatch = ">=0.3.0"
 python-dateutil = ">=2.8.1"
 prompt-toolkit = ">=3.0.2"
@@ -53,3 +69,8 @@ Sphinx = "4.4.0"
 sphinx-rtd-theme = "1.0.0"
 temple = "*"
 tox = "3.24.5"
+
+[tool.pytest.ini_options]
+xfail_strict = true
+testpaths = "formaldict/tests"
+norecursedirs = ".venv"

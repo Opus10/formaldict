@@ -332,9 +332,7 @@ class Schema(collections.abc.Sequence):
                 'label': '',
                 'condition': None,
                 'required': True,
-                'name': (
-                    entry_schema.get('label', '').replace('_', ' ').title()
-                ),
+                'name': (entry_schema.get('label', '').replace('_', ' ').title()),
                 'help': '',
                 'type': 'string',
                 'multiline': False,
@@ -351,9 +349,7 @@ class Schema(collections.abc.Sequence):
                     **default_entry_schema,
                 }
 
-            schema_with_defaults.append(
-                {**default_entry_schema, **entry_schema}
-            )
+            schema_with_defaults.append({**default_entry_schema, **entry_schema})
 
         self._schema = schema_with_defaults
 
@@ -368,28 +364,20 @@ class Schema(collections.abc.Sequence):
             label = entry_schema.get('label')
 
             if not label:
-                raise ValueError(
-                    f'Label not supplied for schema element {entry_schema}'
-                )
+                raise ValueError(f'Label not supplied for schema element {entry_schema}')
 
             if label in self._entry_schemas:
-                raise ValueError(
-                    f'Multiple declarations for label "{label}" in schema'
-                )
+                raise ValueError(f'Multiple declarations for label "{label}" in schema')
 
             if (
                 entry_schema['type'] == 'string'
                 and entry_schema['matches']
                 and entry_schema['choices']
             ):
-                raise ValueError(
-                    'Cannot have both "matches" and "choices" for a string'
-                )
+                raise ValueError('Cannot have both "matches" and "choices" for a string')
 
             if entry_schema['condition'] is not None:
-                condition = kmatch.K(
-                    entry_schema['condition'], suppress_key_errors=True
-                )
+                condition = kmatch.K(entry_schema['condition'], suppress_key_errors=True)
                 for condition_label in condition.get_field_keys():
                     if condition_label not in self._entry_schemas:
                         raise ValueError(
@@ -408,12 +396,9 @@ class Schema(collections.abc.Sequence):
     def parse_string(self, label, value):
         value = str(value)
 
-        if self[label]['matches'] and not re.fullmatch(
-            self[label]['matches'], value
-        ):
+        if self[label]['matches'] and not re.fullmatch(self[label]['matches'], value):
             raise exceptions.ValidationError(
-                f'Value "{value}" does not match'
-                f' pattern "{self[label]["matches"]}".'
+                f'Value "{value}" does not match' f' pattern "{self[label]["matches"]}".'
             )
         elif self[label]['choices'] and value not in self[label]['choices']:
             raise exceptions.ValidationError(
@@ -467,9 +452,7 @@ class Schema(collections.abc.Sequence):
         elif self[label]['type'] == 'datetime':
             value = self.parse_datetime(label, value)
         else:
-            raise exceptions.ValidationError(
-                f'Schema type "{self[label]["type"]}" not supported.'
-            )
+            raise exceptions.ValidationError(f'Schema type "{self[label]["type"]}" not supported.')
 
         return value
 
@@ -513,19 +496,13 @@ class Schema(collections.abc.Sequence):
 
         non_extant_labels = set(data.keys()) - set(self._entry_schemas.keys())
         if strict and non_extant_labels:
-            err_msg = (
-                'Labels "'
-                + ', '.join(non_extant_labels)
-                + '" not present in schema.'
-            )
+            err_msg = 'Labels "' + ', '.join(non_extant_labels) + '" not present in schema.'
             errors.add(exceptions.ValidationError(err_msg))
 
         condition_failed_labels = set(data.keys()) & condition_failed_labels
         if strict and condition_failed_labels:
             err_msg = (
-                'Labels "'
-                + ', '.join(condition_failed_labels)
-                + '" failed conditions in schema.'
+                'Labels "' + ', '.join(condition_failed_labels) + '" failed conditions in schema.'
             )
             errors.add(exceptions.ValidationError(err_msg))
 

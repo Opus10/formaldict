@@ -29,9 +29,7 @@ def basic_schema():
         'valid_text',
         pytest.param(  # No input will result in error since field is required
             '',
-            marks=pytest.mark.xfail(
-                raises=prompt_toolkit.validation.ValidationError
-            ),
+            marks=pytest.mark.xfail(raises=prompt_toolkit.validation.ValidationError),
         ),
     ],
 )
@@ -56,9 +54,7 @@ def test_errors():
     assert len(errors) == 3
     assert errors['__all__'] == ['Non-field error.']
     assert list(errors) == ['__all__', 'name', 'description']
-    assert str(errors) == (
-        'Non-field error. name: Name error. description: Description error.'
-    )
+    assert str(errors) == ('Non-field error. name: Name error. description: Description error.')
 
 
 @pytest.mark.parametrize(
@@ -76,9 +72,7 @@ def test_formaldict(data, parsed, errors, expected_is_valid, basic_schema):
     for key, value in errors.items():
         errors_obj.add(value, label=key)
 
-    formal_d = core.FormalDict(
-        data=data, parsed=parsed, errors=errors_obj, schema=basic_schema
-    )
+    formal_d = core.FormalDict(data=data, parsed=parsed, errors=errors_obj, schema=basic_schema)
 
     assert formal_d == parsed
     assert formal_d.parsed == parsed
@@ -442,8 +436,7 @@ def test_parse(schema, strict, data, expected_output, expected_errors):
         ),
         (
             [{'label': 'a', 'choices': ['a', 'b'], 'multiline': True}],
-            "<i>Choices: ['a', 'b'].</i> "
-            '<i>Hit ESC and Enter to finish input.</i>',
+            "<i>Choices: ['a', 'b'].</i> " '<i>Hit ESC and Enter to finish input.</i>',
         ),
     ],
 )
@@ -592,9 +585,7 @@ def test_prompt(schema, defaults, prompt_return, expected_prompts, mocker):
     python prompt toolkit is being called correctly and assume prompt
     toolkit is working as intended.
     """
-    mocked_prompt = mocker.patch(
-        'prompt_toolkit.prompt', autospec=True, side_effect=prompt_return
-    )
+    mocked_prompt = mocker.patch('prompt_toolkit.prompt', autospec=True, side_effect=prompt_return)
     s = core.Schema(schema)
     s.prompt(defaults=defaults)
 
