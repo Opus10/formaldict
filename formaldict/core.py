@@ -53,7 +53,7 @@ class Errors(collections.abc.Mapping):
     def __init__(self):
         self._errors = collections.defaultdict(list)
 
-    def add(self, exc, label='__all__'):
+    def add(self, exc, label="__all__"):
         self._errors[label].append(exc)
 
     def __getitem__(self, label):
@@ -67,12 +67,12 @@ class Errors(collections.abc.Mapping):
 
     def __str__(self):
         return (
-            ' '.join(str(error) for error in self._errors['__all__'])
-            + ' '
-            + ' '.join(
-                f'{label}: {error}'
+            " ".join(str(error) for error in self._errors["__all__"])
+            + " "
+            + " ".join(
+                f"{label}: {error}"
                 for label, errors in self._errors.items()
-                if label != '__all__'
+                if label != "__all__"
                 for error in errors
             )
         ).strip()
@@ -329,23 +329,23 @@ class Schema(collections.abc.Sequence):
         schema_with_defaults = []
         for entry_schema in self._schema:
             default_entry_schema = {
-                'label': '',
-                'condition': None,
-                'required': True,
-                'name': (entry_schema.get('label', '').replace('_', ' ').title()),
-                'help': '',
-                'type': 'string',
-                'multiline': False,
+                "label": "",
+                "condition": None,
+                "required": True,
+                "name": (entry_schema.get("label", "").replace("_", " ").title()),
+                "help": "",
+                "type": "string",
+                "multiline": False,
             }
 
-            if entry_schema.get('type', 'string') == 'string':
+            if entry_schema.get("type", "string") == "string":
                 default_entry_schema = {
-                    **{'matches': None, 'choices': None, 'default': ''},
+                    **{"matches": None, "choices": None, "default": ""},
                     **default_entry_schema,
                 }
             else:
                 default_entry_schema = {
-                    **{'default': None},
+                    **{"default": None},
                     **default_entry_schema,
                 }
 
@@ -361,33 +361,33 @@ class Schema(collections.abc.Sequence):
         self._fill_defaults()
 
         for entry_schema in self:
-            label = entry_schema.get('label')
+            label = entry_schema.get("label")
 
             if not label:
-                raise ValueError(f'Label not supplied for schema element {entry_schema}')
+                raise ValueError(f"Label not supplied for schema element {entry_schema}")
 
             if label in self._entry_schemas:
                 raise ValueError(f'Multiple declarations for label "{label}" in schema')
 
             if (
-                entry_schema['type'] == 'string'
-                and entry_schema['matches']
-                and entry_schema['choices']
+                entry_schema["type"] == "string"
+                and entry_schema["matches"]
+                and entry_schema["choices"]
             ):
                 raise ValueError('Cannot have both "matches" and "choices" for a string')
 
-            if entry_schema['condition'] is not None:
-                condition = kmatch.K(entry_schema['condition'], suppress_key_errors=True)
+            if entry_schema["condition"] is not None:
+                condition = kmatch.K(entry_schema["condition"], suppress_key_errors=True)
                 for condition_label in condition.get_field_keys():
                     if condition_label not in self._entry_schemas:
                         raise ValueError(
                             f'Invalid label "{condition_label}" in condition'
                             f' for "{label}". Labels in conditions'
-                            ' can only reference labels declared'
-                            ' in previous steps.'
+                            " can only reference labels declared"
+                            " in previous steps."
                         )
 
-                entry_schema['condition'] = condition
+                entry_schema["condition"] = condition
 
             # Keep a running list of entries that have been seen. This
             # helps us validate if conditions only reference previous steps
@@ -396,11 +396,11 @@ class Schema(collections.abc.Sequence):
     def parse_string(self, label, value):
         value = str(value)
 
-        if self[label]['matches'] and not re.fullmatch(self[label]['matches'], value):
+        if self[label]["matches"] and not re.fullmatch(self[label]["matches"], value):
             raise exceptions.ValidationError(
                 f'Value "{value}" does not match' f' pattern "{self[label]["matches"]}".'
             )
-        elif self[label]['choices'] and value not in self[label]['choices']:
+        elif self[label]["choices"] and value not in self[label]["choices"]:
             raise exceptions.ValidationError(
                 f'Value "{value}" not a valid'
                 f' choice. Possible choices: "{self[label]["choices"]}".'
@@ -440,16 +440,16 @@ class Schema(collections.abc.Sequence):
             value = value.strip()
 
         if not value:
-            value = self[label]['default']
+            value = self[label]["default"]
 
-        if self[label]['required'] and not value:
-            raise exceptions.ValidationError('This field is required.')
-        elif not self[label]['required'] and not value:
+        if self[label]["required"] and not value:
+            raise exceptions.ValidationError("This field is required.")
+        elif not self[label]["required"] and not value:
             return value
 
-        if self[label]['type'] == 'string':
+        if self[label]["type"] == "string":
             value = self.parse_string(label, value)
-        elif self[label]['type'] == 'datetime':
+        elif self[label]["type"] == "datetime":
             value = self.parse_datetime(label, value)
         else:
             raise exceptions.ValidationError(f'Schema type "{self[label]["type"]}" not supported.')
@@ -457,12 +457,12 @@ class Schema(collections.abc.Sequence):
         return value
 
     def passes_condition(self, entry_schema, data):
-        if entry_schema['condition'] is None:
+        if entry_schema["condition"] is None:
             return True
-        elif isinstance(entry_schema['condition'], bool):
-            return entry_schema['condition']
+        elif isinstance(entry_schema["condition"], bool):
+            return entry_schema["condition"]
         else:
-            return entry_schema['condition'].match(data)
+            return entry_schema["condition"].match(data)
 
     def parse(self, data, strict=False):
         """
@@ -485,7 +485,7 @@ class Schema(collections.abc.Sequence):
         condition_failed_labels = set()
         for entry_schema in self:
             try:
-                label = entry_schema['label']
+                label = entry_schema["label"]
                 if not self.passes_condition(entry_schema, parsed):
                     condition_failed_labels.add(label)
                     continue
@@ -496,13 +496,13 @@ class Schema(collections.abc.Sequence):
 
         non_extant_labels = set(data.keys()) - set(self._entry_schemas.keys())
         if strict and non_extant_labels:
-            err_msg = 'Labels "' + ', '.join(non_extant_labels) + '" not present in schema.'
+            err_msg = 'Labels "' + ", ".join(non_extant_labels) + '" not present in schema.'
             errors.add(exceptions.ValidationError(err_msg))
 
         condition_failed_labels = set(data.keys()) & condition_failed_labels
         if strict and condition_failed_labels:
             err_msg = (
-                'Labels "' + ', '.join(condition_failed_labels) + '" failed conditions in schema.'
+                'Labels "' + ", ".join(condition_failed_labels) + '" failed conditions in schema.'
             )
             errors.add(exceptions.ValidationError(err_msg))
 
@@ -514,18 +514,18 @@ class Schema(collections.abc.Sequence):
         """
         entry_schema = self[label]
         provided_help = entry_schema["help"]
-        help_text = f'<b>{provided_help}</b> ' if provided_help else ''
+        help_text = f"<b>{provided_help}</b> " if provided_help else ""
 
-        if not entry_schema['required']:
-            help_text += '<i>Optional.</i> '
+        if not entry_schema["required"]:
+            help_text += "<i>Optional.</i> "
 
-        if entry_schema['choices']:
+        if entry_schema["choices"]:
             help_text += f'<i>Choices: {entry_schema["choices"]}.</i> '
-        elif entry_schema['matches']:
+        elif entry_schema["matches"]:
             help_text += f'<i>Matches: {entry_schema["matches"]}.</i> '
 
-        if entry_schema['multiline']:
-            help_text += '<i>Hit ESC and Enter to finish input.</i> '
+        if entry_schema["multiline"]:
+            help_text += "<i>Hit ESC and Enter to finish input.</i> "
 
         return help_text.strip()
 
@@ -535,8 +535,8 @@ class Schema(collections.abc.Sequence):
         """
         entry_schema = self[label]
         prompt_text = f'{entry_schema["name"]}: '
-        if entry_schema['multiline']:
-            prompt_text += '\n> '
+        if entry_schema["multiline"]:
+            prompt_text += "\n> "
 
         return prompt_text
 
@@ -559,21 +559,21 @@ class Schema(collections.abc.Sequence):
             if not self.passes_condition(entry_schema, data):
                 continue
 
-            label = entry_schema['label']
-            choices = entry_schema.get('choices')
-            help_text = self._get_help_text(entry_schema['label'])
-            prompt_text = self._get_prompt_text(entry_schema['label'])
+            label = entry_schema["label"]
+            choices = entry_schema.get("choices")
+            help_text = self._get_help_text(entry_schema["label"])
+            prompt_text = self._get_prompt_text(entry_schema["label"])
             validator = _ValueValidator(schema=self, label=label)
 
             value = prompt_toolkit.prompt(
                 prompt_text,
                 bottom_toolbar=HTML(help_text) if help_text else None,
                 completer=WordCompleter(choices) if choices else None,
-                default=defaults.get(label, entry_schema['default']),
+                default=defaults.get(label, entry_schema["default"]),
                 validator=validator,
                 validate_while_typing=False,
-                prompt_continuation='> ',
-                multiline=entry_schema['multiline'],
+                prompt_continuation="> ",
+                multiline=entry_schema["multiline"],
             )
             if value.strip():
                 data[label] = value
