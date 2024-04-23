@@ -1,6 +1,7 @@
 """
 Tests for the formaldict.core module
 """
+
 import datetime as dt
 from unittest import mock
 
@@ -9,8 +10,7 @@ import prompt_toolkit.formatted_text
 import prompt_toolkit.validation
 import pytest
 
-from formaldict import core
-from formaldict import exceptions
+from formaldict import core, exceptions
 
 
 @pytest.fixture()
