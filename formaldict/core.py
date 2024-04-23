@@ -9,6 +9,7 @@ This module contains the `Schema`, the parsed
 
     The ``formaldict`` module will eventually be its own library.
 """
+
 import collections.abc
 import copy
 import datetime as dt
@@ -17,9 +18,9 @@ import re
 import dateutil.parser
 import kmatch
 import prompt_toolkit
+import prompt_toolkit.validation
 from prompt_toolkit.completion import WordCompleter
 from prompt_toolkit.formatted_text import HTML
-import prompt_toolkit.validation
 
 from . import exceptions
 
@@ -30,7 +31,7 @@ class _ValueValidator(prompt_toolkit.validation.Validator):
     on input in the same way schemas are validated
     """
 
-    def __init__(self, *args, schema=None, label=None, **kwargs):
+    def __init__(self, *args, schema, label, **kwargs):
         self._schema = schema
         self._label = label
         super().__init__(*args, **kwargs)
@@ -42,7 +43,7 @@ class _ValueValidator(prompt_toolkit.validation.Validator):
         except exceptions.ValidationError as exc:
             raise prompt_toolkit.validation.ValidationError(
                 message=str(exc), cursor_position=len(text)
-            )
+            ) from exc
 
 
 class Errors(collections.abc.Mapping):
@@ -464,7 +465,7 @@ class Schema(collections.abc.Sequence):
         else:
             return entry_schema["condition"].match(data)
 
-    def parse(self, data, strict=False):
+    def parse(self, data, strict=False) -> FormalDict:
         """
         Parse data based on the schema.
 
@@ -474,7 +475,7 @@ class Schema(collections.abc.Sequence):
                 are not present in the schema.
 
         Returns:
-            dict: The parsed data
+            The parsed data
 
         Todo:
             Allow passing in default values to override any defaults in the
@@ -483,6 +484,7 @@ class Schema(collections.abc.Sequence):
         parsed = {}
         errors = Errors()
         condition_failed_labels = set()
+        label = ""
         for entry_schema in self:
             try:
                 label = entry_schema["label"]
@@ -540,7 +542,7 @@ class Schema(collections.abc.Sequence):
 
         return prompt_text
 
-    def prompt(self, defaults=None):
+    def prompt(self, defaults=None) -> FormalDict:
         """
         Prompt for input of all entries in the schema
 
@@ -549,7 +551,7 @@ class Schema(collections.abc.Sequence):
                 that should be used in place of any other declared defaults
 
         Returns:
-            dict: The parsed information, which also validates against the
+            The parsed information, which also validates against the
             `Schema`.
         """
         defaults = defaults or {}
