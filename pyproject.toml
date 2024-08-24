@@ -27,7 +27,7 @@ packages = [
 exclude = [
   "*/tests/"
 ]
-version = "1.0.6"
+version = "1.0.7"
 description = "Formal structured dictionaries parsed from a schema"
 authors = ["Wes Kendall"]
 classifiers = [
