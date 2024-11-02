@@ -2,7 +2,7 @@
 
 ## Compatibility
 
-`formaldict` is compatible with Python 3.8 - 3.12.
+`formaldict` is compatible with Python 3.9 - 3.13.
 
 ## Documentation
 
