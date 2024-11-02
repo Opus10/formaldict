@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.1.0 (2024-11-01)
+
+#### Changes
+
+  - Added Python 3.13 support, dropped Python 3.8 support by [@wesleykendall](https://github.com/wesleykendall) in [#12](https://github.com/Opus10/formaldict/pull/12).
+
 ## 1.0.7 (2024-08-24)
 
 #### Changes
